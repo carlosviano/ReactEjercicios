@@ -1,16 +1,17 @@
 import './list.css'
 
-export default function List({ list, onClick, funcionCrossed, crossed }) {
+export default function List({ list, onClick}) {
   function handleClick(id) {
     const newList = list.filter((item) => item.id !== id);
     onClick(newList);
   }
 
- function toggleCrossed(){
-    funcionCrossed(crossed => !crossed)
-  }
-
-  let toggleTachado= crossed ? 'myClass' : null
+function toggleTachado(index){
+  const newListTachada = [...list]
+  newListTachada[index].completed = !newListTachada[index].completed;
+  onClick(newListTachada);
+  
+}
 
   return (
     <ol>
@@ -18,12 +19,11 @@ export default function List({ list, onClick, funcionCrossed, crossed }) {
         <h1>No hay lista para mostrar</h1>
       ) : (
         list
-        .filter((item) => item.id <= 20)
-        .map((item) => (
+        .map((item,index) => (
             <div>
-            <li key={item.id} >
-                 <p className={toggleTachado}> {item.title}{" "} </p>
-              <button onClick={() => handleClick(item.id)}>X</button> <button onClick={toggleCrossed}> Hecho</button>
+            <li key={index} >
+                 <p className={item.completed ? "myClass" : ""}> {item.title}{" "}</p>
+              <button onClick={() => handleClick(item.id)}>X</button> <button onClick={() => toggleTachado(index)}> Hecho</button>
             </li>
             </div>
           ))

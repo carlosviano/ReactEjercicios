@@ -4,7 +4,6 @@ import List from "../../components/List/List";
 
 export default function EjercicioLista(){
 const [toDo, setToDo] = useState([])
-const [crossed, setCrossed] = useState(false)
 
 useEffect(function(){
     async function fetchList(){
@@ -19,7 +18,7 @@ useEffect(function(){
     return(
         <div>
             <h1>Esto es el ejercicio de lista</h1>
-            <List list={toDo} onClick={setToDo} funcionCrossed={setCrossed} crossed={crossed}/>
+            <List list={toDo.slice(0,20)} onClick={setToDo}/>
         </div>
     )
 }
