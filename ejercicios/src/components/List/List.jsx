@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import './list.css'
-
+import {v4 as uuidv4} from 'uuid';
 
 export default function List({ list, onClick}) {
 
@@ -15,12 +15,12 @@ export default function List({ list, onClick}) {
     if(nuevaTarea === ""){
       return
     }
-    const objetoNuevaTarea = {userId:1, id:Math.floor(Math.random()*100),
+    const objetoNuevaTarea = {userId:1, id:uuidv4(),
     title:nuevaTarea,
-  completed:false}
+    completed:false}
     const nuevaListaConTarea = [...list, objetoNuevaTarea]
     onClick(nuevaListaConTarea)
-      console.log(nuevaListaConTarea)
+    console.log(nuevaListaConTarea)
     setNuevaTarea("")
   }
 
@@ -43,7 +43,7 @@ function toggleTachado(index){
     <button>Anadir tarea</button>
     </form>
           <ol>
-      {!list ? (
+      {list.length === 0 ? (
         <h1>No hay lista para mostrar</h1>
       ) : (
         list
