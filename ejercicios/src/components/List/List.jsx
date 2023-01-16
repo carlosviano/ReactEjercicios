@@ -1,6 +1,29 @@
+import { useState } from 'react';
 import './list.css'
 
+
 export default function List({ list, onClick}) {
+
+  const [nuevaTarea, setNuevaTarea] = useState("")
+
+  function typeTarea(e){
+    setNuevaTarea(e.target.value)
+  }
+  
+  function addTareaToList(e){
+    e.preventDefault()
+    if(nuevaTarea === ""){
+      return
+    }
+    const objetoNuevaTarea = {userId:1, id:Math.floor(Math.random()*100),
+    title:nuevaTarea,
+  completed:false}
+    const nuevaListaConTarea = [...list, objetoNuevaTarea]
+    onClick(nuevaListaConTarea)
+      console.log(nuevaListaConTarea)
+    setNuevaTarea("")
+  }
+
   function handleClick(id) {
     const newList = list.filter((item) => item.id !== id);
     onClick(newList);
@@ -9,12 +32,17 @@ export default function List({ list, onClick}) {
 function toggleTachado(index){
   const newListTachada = [...list]
   newListTachada[index].completed = !newListTachada[index].completed;
+  console.log(newListTachada)
   onClick(newListTachada);
-  
 }
 
   return (
-    <ol>
+    <div>
+    <form onSubmit={addTareaToList}>
+    <input value={nuevaTarea} onChange={typeTarea}/>
+    <button>Anadir tarea</button>
+    </form>
+          <ol>
       {!list ? (
         <h1>No hay lista para mostrar</h1>
       ) : (
@@ -29,5 +57,6 @@ function toggleTachado(index){
           ))
       )}
     </ol>
+    </div>
   );
 }
