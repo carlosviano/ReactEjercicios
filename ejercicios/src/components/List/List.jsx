@@ -18,7 +18,7 @@ export default function List({ list, onClick}) {
     const objetoNuevaTarea = {userId:1, id:uuidv4(),
     title:nuevaTarea,
     completed:false}
-    const nuevaListaConTarea = [...list, objetoNuevaTarea]
+    const nuevaListaConTarea = [objetoNuevaTarea,...list]
     onClick(nuevaListaConTarea)
     console.log(nuevaListaConTarea)
     setNuevaTarea("")
